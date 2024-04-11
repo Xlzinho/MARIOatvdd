@@ -1,18 +1,26 @@
-
 const mario = document.querySelector('.mario')
 const pipe = document.querySelector('.pipe')
 
 const start = document.querySelector('.start')
 const gameOver = document.querySelector('.game-over')
 
+const scoreDisplay = document.createElement('div') // Elemento HTML para exibir o score
+scoreDisplay.classList.add('score')
+document.body.appendChild(scoreDisplay) // Adicionando ao corpo do HTML
+
+let score = 0 // Variável para armazenar o score
+
 audioStart = new Audio('./src/audio/audio_theme.mp3')
 audioGameOver = new Audio('./src/audio/audio_gameover.mp3')
-
 
 const startGame = () => {
   pipe.classList.add('pipe-animation')
   start.style.display = 'none'
-
+  // Inicia o loop de incremento do score
+  setInterval(() => {
+    score += 10 // Incrementa o score a cada segundo
+    scoreDisplay.textContent = `Score: ${score}` // Atualiza o texto do display do score
+  }, 1000)
   // audio
   audioStart.play()
 }
@@ -26,6 +34,10 @@ const restartGame = () => {
   mario.style.bottom = '0'
 
   start.style.display = 'none'
+
+  // Reinicia o score
+  score = 0;
+  scoreDisplay.textContent = `Score: ${score}` // Atualiza o texto do display do score
 
   audioGameOver.pause()
   audioGameOver.currentTime = 0;
